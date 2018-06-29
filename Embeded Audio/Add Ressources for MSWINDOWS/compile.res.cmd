@@ -1,0 +1,1 @@
+brcc32 Embeded_MP3.rc
