@@ -11,6 +11,7 @@ uses
   UMain in 'UMain.pas' {FrmMain};
 
 {$R *.res}
+
 {$IFDEF MSWINDOWS}
   {$R Embeded_MP3.RES}
 {$ENDIF}
@@ -57,10 +58,8 @@ end;
 
 procedure Play_EmbedAudio;
 begin
-  if MPlayer = nil then
-  begin
-   MPlayer := TMediaPlayer.Create(Application);
-  end;
+  MPlayer := TMediaPlayer.Create(Application);
+  MPlayer.Name := 'MPlayer_Embeded'; 
   try
    {$IFDEF ANDROID}
       MPlayer.FileName := SetMusicFileName(Android_Audio);
@@ -77,23 +76,11 @@ begin
   end;
 end;
 
-procedure Start_Audio;
-begin
-  MPlayer := TMediaPlayer.Create(Application);
-  MPlayer.Name := 'MPlayer_Embeded';
-  Play_EmbedAudio;
-end;
-
-//procedure OnFinishAPP;
-//begin
-//  MPlayer.Free;
-//end;
-
 {$endregion}
 
 begin
   Application.Initialize;
-  Start_Audio;
+  Play_EmbedAudio;
   Application.CreateForm(TFrmMain, FrmMain);
   Application.Run;
 end.
